@@ -3,19 +3,21 @@
 	include('connect.php');
 	include('db_name.php');
 	
-	class User {
-	
-		var $id;
-		var $selectQuestion[];
-		var $errorQuestion[];
-		var $singleFalseNum = 0;
-		
-		function _construct( $uid ) {
-		
-			$this->id = $uid;
-			$getQuestionQuery = mysql_query("SELECT `question` FROM `$user_db` WHERE `id` = '$this->id' AND `end` = '0'");
-		
-		}
+	function getQuestion ($qid) {
+
+		$query = "SELECT * FROM `$question_db` WHERE `id` = '$qid'";
+		$result = mysql_query($query) or die (mysql_error());
+		$row = mysql_fetch_assoc($result);
+		return $json = json_encode($row);
+
+	}
+
+	function countError ($uid, $qid) {
+
+		$uquery = mysql_query("SELECT `false_time` FROM '$user_db' WHERE `num` = '$uid' ");
+		$qquery = mysql_query("SELECT `False_time` FROM '$question_db' WHERE `id` = '$qid'");
+		$utime = mysql_fetch_assoc($uquery);
+		$qtime = mysql_fetch_assoc($qquery);
 		
 	}
 
