@@ -1,0 +1,33 @@
+﻿._content {
+
+	margin: 0 auto;
+	margin-top: 10px;
+	width: 60%;
+	padding: 20px;
+
+}
+
+table {
+
+	margin-top: 10px;
+	border-collapse: collapse;
+	border: 0px;
+	
+}
+
+td {
+	height: 50px;
+	padding: 5px;
+	border: 0px;
+	box-shadow: 4px 4px 0px rgba(40%,40%,40%,0.5);
+}
+
+.thead {
+	
+	padding-left: 10px;
+	font-family: Freestyle Script;
+	font-size: 64px;
+	font-weight: 100;
+	color: rgba(100,0,300,0.64);
+
+}

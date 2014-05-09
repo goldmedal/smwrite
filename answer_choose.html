@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ <link type="text/css" rel="stylesheet" href="mainpage.css">
+ <meta http-equiv="content-type" content="text/html; charset=big5">
+<html>
+ <head>
+  <title> 台語漢字書寫 - 選擇測驗方式 </title>
+ <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+ <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+ <script src="jquery.hotkeys.js"></script>	
+ <meta charset="big5" />
+ <script src="Link.js"></script>
+ </head>
+ <body>
+	
+	<div class='title'>台語漢字書寫 - 選擇測驗方式</div>
+	<fieldset class='item'>
+		<ul>
+			<li><a href="answer_list.php" accesskey='a'>自選練習(a)</a></li>
+			<li><a href="answer_group_list.php" accesskey='s'>題組測驗(s)</a></li>
+			<li><a href="test_answer_list.php"  accesskey='q'>類別測驗(q)</a></li>
+			<li><a href="high_fail_rate_answer_list.php" accesskey='w'>常錯字測驗(w)</a></li>
+	</fieldset>
+	<fieldset class='remind'>
+		<legend> 作答範例題 </legend>
+		<ul>
+		<li>題目代碼: SHA001
+		<li>題目為:<audio id="question" controls preload>
+					<source src="wav_file/SHA001.wav">
+				</audio></li>
+		<li>你將會聽到: 囝仔愛看電視, 愛</li>
+		<li>所以你要回答: 愛  (此為台語漢字)</li>
+		</ul>
+	</fieldset>
+		
+ </body>
+</html>

@@ -1,0 +1,33 @@
+<!-- **************************************************************
+
+ File Name : manager.html   date:20120803 
+ Programmer : LKS
+ Statement : 
+ the manage page of this system
+
+ ****************************************************************  -->
+
+<html>
+<head>
+<script language=javascript>
+
+	function h_submit(){
+
+		document.getElementById('judge').submit();
+		
+	}
+
+</script>
+<meta charset="big5" />
+</head>
+ <body>
+  <center><font size='7'>管理者頁面</font><br><br>
+  <a href="question_list.php">題庫管理系統</a><br>
+  <a href="manager_record.php">觀看所有人漢字練習記錄</a><br>
+<form action="manager_spell_record.php" method="post" id="judge">
+	<input type="hidden" name="sp" value=1>
+	<a href="#" onclick="h_submit();">觀看所有人漢拼練習記錄</a><br>
+</form>
+  </center>
+ </body>
+</html>

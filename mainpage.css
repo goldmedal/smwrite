@@ -1,0 +1,115 @@
+* {	
+	font-family:
+	font-family: Tahoma;
+	margin:0px;
+	padding:0px;
+} 
+
+div.title{
+	font-size:20px;
+	padding:10px;
+	text-align:center;
+	color:#3300ff;
+}
+div.title2{
+	font-size:30px;
+	padding:15px;
+	text-align:center;
+	color:#330033;
+}
+
+div.thead{
+	font-size: 20px;
+	margin: 0 auto;
+	margin-top: 5px;
+	margin-bottom: 3px;
+	color:#9900ff;
+	width: auto;
+	text-align: center;
+}
+
+#Add {
+
+	margin: 0 auto;
+	margin-bottom: 5px;
+	padding: 5px;
+	width: 300px;
+	border: thin dotted #9966ff;
+
+}
+
+fieldset.remind {
+	font-size:15px;
+	padding:10px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:15px;
+	width:1000px;
+	color:#333; 
+	border:#06c dashed 1px;
+	
+} 
+
+fieldset.remind legend {
+	color:#06c;
+	font-weight:800; 
+	background:#fff;
+	border:#b6b6b6 solid 1px;
+	padding:3px 6px;
+} 
+
+fieldset.remind ul {
+
+	list-style-type: none;
+	margin:5px 0 2px 0;
+
+} 
+
+fieldset.item{
+	font-size:18px;
+	padding:5px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom:15px;
+	width:600px;
+	color:#333;
+	border:#06c solid 1px;
+}
+fieldset.item ul{
+	
+    list-style-type: none;
+	text-align:center;
+    padding: 5px;
+    margin: 0 auto;
+
+}
+fieldset.item li {
+	display: inline;
+    background: white;
+    margin: 2 auto;
+    padding: 2px;
+}
+p.ps {
+	font-size:8px;
+	text-align:center;
+}
+
+table {
+	margin: 0 auto;
+	margin-bottom: 5px;
+	margin-top: 5px;
+	padding: 5px;
+    border-collapse: collapse;
+	border: thin dotted #330066;
+}
+tr {
+	
+	border: thin solid #330066;
+	padding: 5px;
+}
+
+td {
+	text-align:center;
+	padding: 5px;
+	border: thin solid #330066;
+}

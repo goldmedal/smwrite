@@ -1,0 +1,47 @@
+<!-- **************************************************************
+
+ File Name : main.html   date:20120803 
+ Programmer : LKS
+ Statement : 
+ the main page of this system
+
+ ****************************************************************  -->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script language=javascript>
+
+	function h_submit(){
+
+		document.getElementById('judge').submit();
+		
+	}
+
+</script>
+ <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+ <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+ <script src="jquery.hotkeys.js"></script>	
+ <script src="Link.js"></script>
+<title> SMWrite 台語拼音及聲調書寫 </title>
+ <link type="text/css" rel="stylesheet" href="mainpage.css">
+ <meta charset="big5"/>
+</head>
+<body>
+<div class='title'>
+SMWrite 台語拼音及聲調書寫
+</div>
+<fieldset class="item">
+<ul>
+<li><a href="spell_answer_choose.html" accesskey="a">開始測驗(a)</li>
+<form action="user_record.php" id="judge" method="POST">
+<input type="hidden" name="sp" value=1>
+</form>
+<li><a href="user_record.php?sp=1" accesskey="s">觀看測驗(s)</li>
+</ul>
+</fieldset>
+</body>
+</html>

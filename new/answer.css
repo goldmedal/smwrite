@@ -1,0 +1,99 @@
+body {
+
+	font-family:  "Arial", "Microsoft JhengHei",  "微軟正黑體";
+}
+
+@font-face {
+	font-family: "微軟正黑體", "Microsoft JhengHei";
+	src: url('font/微軟正黑體.ttf') format("trueType");
+}
+
+header {
+
+	position: absolute;
+	top: 5%;
+	left: 25%;
+	width: 630px;
+	font-size: 25pt;
+}
+
+#note {
+	float: right;
+	font-size: 12pt;
+}
+
+
+
+#middle {
+
+	position: absolute;
+	top: 30%;
+	width: 99%;
+	height: 30%;
+
+
+}
+
+#question {
+
+	position: absolute;
+	left: 10%;
+
+	line-height: 16pt;
+
+}
+
+#audioQuestion {
+
+	margin-top: 5pt;
+	margin-bottom: 5pt;
+
+}
+
+#answer {
+	position: absolute;
+	float: right;
+	right: 15%;
+	width: 300px;
+	height: 200px;
+
+
+}
+
+aside {
+
+	position: fixed;
+	bottom: 0px;	
+	width: 100%;
+	padding-top: 1%;
+	padding-left: 10px;
+	background-color: #000000;
+	border-radius: 10px;
+	color: #ffffff;
+
+}
+
+#operaPart {
+
+	float: right;
+	width: 50%;
+}
+
+#standardPart {
+
+	width: 50%;
+
+}
+
+.note {
+
+	font-size: 10pt;
+
+}
+
+.remidTitle{
+
+	font-size: 20pt;
+	font-style: italic;
+	
+}
