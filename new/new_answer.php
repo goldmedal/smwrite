@@ -2,9 +2,12 @@
 
 <?php
 
-	include("connect_db.php");
-	include("db_name.php");
-	$user = $_SESSION['sid']; 
+	require "C:\AppServ\www\screw\smwrite\connect_db.php" ;
+	require "C:\AppServ\www\screw\smwrite\db_name.php" ;
+	$user = $_GET['sid']; 
+	$uquery = mysql_query("SELECT `num`, `question` FROM `$user_db` WHERE `id` = '$user' AND `end` = '0'") or die(mysql_error());
+	$user_row = mysql_fetch_assoc($uquery);
+	$total = count($user_row['question']);
 	
 ?>
 <html>
@@ -28,8 +31,8 @@
 			</article>
 			<article id="question">
 				<section id="user">受試者: <? echo $user; ?></section>
-				<section id="numPart">第 1 題 / 共 50 題</section>
-				<section id="idPart">題庫代碼: SHA-249</section>
+				<section id="numPart">第 <span id="nowNum"></span> 題 / 共 <? echo $total ?> 題</section>
+				<section id="idPart">題庫代碼: <span id="nowQid"></span></section>
 				<audio id="audioQuestion" controls autoplay preload>
 					<source src="">
 				</audio>
