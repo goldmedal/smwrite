@@ -25,6 +25,7 @@
  <script src="jquery.hotkeys.js"></script>	
  <script src="Link.js"></script>
 </head>
+
 <body>
 <div class='title'>Screw - SMwrite台語漢字檢測系統 - 測驗中</div>
 <fieldset class='remind'>
@@ -81,15 +82,19 @@
 	$cl_row = mysql_fetch_assoc($cl_result);
 
 	if($question_num == 0){
+	
 		$time1 = date("H:i:s",mktime(date('H'),date('i'),date('s')));
 		mysql_query("UPDATE $user_db SET time1 = '$time1' WHERE id = '$user' AND end = '0' ")or die(mysql_error());
+		
 	}
 
 	switch($row['Level']){
+	
 			case 1: echo "<center>題庫代碼：".$cl_row['title']."A-".$row['Num']."</center>";break;
 			case 2: echo "<center>題庫代碼：".$cl_row['title']."B-".$row['Num']."</center>";break;
 			case 3: echo "<center>題庫代碼：".$cl_row['title']."C-".$row['Num']."</center>";break;
-			}
+
+	}
 ?>
 
 	<center>
@@ -115,8 +120,6 @@
 	}
 	document.captureEvents(Event.KEYDOWN);
 
-	
-
 //-->
 
 function keyFunction() {
@@ -133,6 +136,7 @@ function keyFunction() {
 	}
 
 }
+
 document.onkeydown=keyFunction;
 
 </script>

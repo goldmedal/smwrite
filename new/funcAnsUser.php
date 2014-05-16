@@ -36,5 +36,22 @@
 	
 	}
 	
+		
+	function getClassLevel($class, $level) {
+	
+		$cl_query = "SELECT * FROM $classfi_db WHERE id =".$class;
+		$cl_result = mysql_query($cl_query) or die(mysql_error());
+		$cl_row = mysql_fetch_assoc($cl_result);
+		
+		switch($level){
+
+			case 1: return $cl_row['title']."A-".$row['Num'];
+			case 2: return $cl_row['title']."B-".$row['Num'];
+			case 3: return $cl_row['title']."C-".$row['Num'];
+
+		}
+	
+	}
+	
 	
 ?>
