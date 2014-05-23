@@ -4,10 +4,16 @@
 
 	require "C:\AppServ\www\screw\smwrite\connect_db.php" ;
 	require "C:\AppServ\www\screw\smwrite\db_name.php" ;
+	require "C:\AppServ\www\screw\smwrite\funcAnsUser.php";
+
 	$user = $_GET['sid']; 
 	$uquery = mysql_query("SELECT `num`, `question` FROM `$user_db` WHERE `id` = '$user' AND `end` = '0'") or die(mysql_error());
 	$user_row = mysql_fetch_assoc($uquery);
 	$total = count($user_row['question']);
+	$nowNum = 0;
+	$firstQid = getNowQid($nowNum, $user_row['question']);
+	$firstQrow = getQuestion($firstQid);
+
 	
 ?>
 <html>
@@ -31,10 +37,17 @@
 			</article>
 			<article id="question">
 				<section id="user">受試者: <? echo $user; ?></section>
-				<section id="numPart">第 <span id="nowNum"></span> 題 / 共 <? echo $total ?> 題</section>
-				<section id="idPart">題庫代碼: <span id="nowQid"></span></section>
+				<section id="numPart">第 <span id="nowNum">1</span> 題 / 共 <? echo $total ?> 題</section>
+				<section id="idPart">題庫代碼: 
+					<span id="nowQid">
+					<?
+						$ClassLevel = getClassLevel($firstQrow['classfi'], $firstQrow['level']);
+						echo $ClassLevel.$firstQrow['num'];
+					?>
+					</span>
+				</section>
 				<audio id="audioQuestion" controls autoplay preload>
-					<source src="">
+					<source src="<?echo $firstQrow['DataSource']; ?>">
 				</audio>
 				<section id="ansPart">
 					<label>請輸入答案(a): </label>
