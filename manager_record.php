@@ -29,10 +29,10 @@
 <br><br>
 <hr>
 <center>
-<form action="manager_record.php" method="post">
+<form action="manager_record.php" method="get">
 選擇欲查詢者(a)：<select name="userlist" size='1' accesskey='a' >
 <?
-	$user = $_POST['userlist'];
+	$user = $_GET['userlist'];
 	$user_sql = mysql_query("SELECT DISTINCT id FROM $user_db ORDER BY id") or die(mysql_error());
 	$user_total = mysql_num_rows($user_sql);
 	for($j=0;$j<$user_total;$j++){
@@ -56,8 +56,8 @@
 	<input type="submit" value="弱點分析(w)" accesskey="w">
 	<a href="manager.php" accesskey="r">回選單(r)</a>
 </form>
-
-<table border='1'>
+<div width="50%" height="60%">
+<table border='1' width='60%'>
 <tr>
 	<td colspan="7">
 <?
@@ -78,7 +78,9 @@
 	<td>選擇的題目</td>
 	<td>答錯的題目</td>
 </tr>
-
+</table>
+<div width="60%" height=160px style="overflow: scroll;">
+<table>
 <?
 	$sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user'");
 	$total = mysql_num_rows($sql);
@@ -158,6 +160,9 @@
 		<input type="submit" value="進來看"></form></td>
 </tr>
 <? } ?>
+</table>
+</div>
+</div>
 </body>
 </html>
 

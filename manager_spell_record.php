@@ -12,7 +12,7 @@
 	include("connect_db.php");
 	include("header.php");
 	include("db_name.php");
-	$sp = $_POST["sp"];
+	$sp = $_GET["sp"];
 
 ?>
 <html>
@@ -30,10 +30,10 @@
 <br><br>
 <hr>
 <center>
-<form action="manager_spell_record.php" method="post">
+<form action="manager_spell_record.php" method="get">
 ¿ï¾Ü±ý¬d¸ßªÌ(a)¡G<select name="userlist" size='1' accesskey='a'>
 <?
-	$user = $_POST['userlist'];
+	$user = $_GET['userlist'];
 	$user_sql = mysql_query("SELECT DISTINCT id FROM $user_spell_db ORDER BY id") or die(mysql_error());
 	$user_total = mysql_num_rows($user_sql);
 	for($j=0;$j<$user_total;$j++){

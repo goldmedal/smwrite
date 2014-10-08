@@ -27,7 +27,7 @@
  <meta charset="big5" />
  <script src="Link.js"></script>
  <link type="text/css" rel="stylesheet" href="mainpage.css">
- <meta http-equiv="Content-Type" content"text/html; charset="big5"/>
+ <meta http-equiv="Content-Type" content"text/html; charset='big5'"/>
 </head>
  <body>
   <div class='title'>管理者頁面</div>
@@ -45,7 +45,7 @@
  </ul>
  <ul>
   <li><a href="manager_record.php" accesskey='c'>觀看漢字練習記錄(c)</a></li>
-<form action="manager_spell_record.php" method="post" id="judge">
+<form action="manager_spell_record.php" method="get" id="judge">
 	<input type="hidden" name="sp" value=1>
   <li><a href="#" onclick="h_submit();" accesskey='q'>觀看漢拼練習記錄(q)</a></li>
 </form>
