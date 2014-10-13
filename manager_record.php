@@ -18,12 +18,76 @@
 <head>
 <title> 紀錄查詢 </title>
  <link type="text/css" rel="stylesheet" href="mainpage.css"> 
+ <link type="text/css" rel="stylesheet" href="scrollbar_src/perfect-scrollbar.css">  
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
  <script src="jquery.hotkeys.js"></script>	
  <script src="Link.js"></script>
+ <script src="scrollbar_src/perfect-scrollbar.js"></script>
+ 
  <meta charset="big5" />
+<style>
+
+#child {
+
+	-webkit-scrollbar: 2px;
+
+}
+
+td.date {
+
+	width: 114px;
+
+}
+
+td.mode {
+
+	width: 95px;
+
+}
+	
+td.wasteTime {
+
+	width: 95px;
+
+}	
+
+td.answerNum {
+
+	width: 83px;
+
+}
+
+td.errorRate {
+
+	width: 83px;
+
+}
+
+td.select {
+
+	width: 113px;
+
+}
+
+td.error {
+
+	width: 113px;
+
+}
+
+</style> 
 </head>
+<script>
+
+$(document).ready(function(){
+
+	$('#child').perferScrollbar();
+
+});
+
+</script>
+
 <body>
 <div class="title">漢字查詢紀錄</div>
 <br><br>
@@ -56,31 +120,29 @@
 	<input type="submit" value="弱點分析(w)" accesskey="w">
 	<a href="manager.php" accesskey="r">回選單(r)</a>
 </form>
-<div width="50%" height="60%">
-<table border='1' width='60%'>
+<div width="50%" height="80%">
+<table border='1'>
 <tr>
 	<td colspan="7">
 <?
-
 	if(empty($user)) { echo "尚未選擇查詢目標"; }
 	else { echo $user."的歷史紀錄"; }
-
 
 ?>
 	</td>
 </tr>
 <tr>
-	<td>日期 時間</td>
-	<td>模式</td>
-	<td>花費時間</td>
-	<td>答題數</td>
-	<td>錯誤率</td>
-	<td>選擇的題目</td>
-	<td>答錯的題目</td>
+	<td class='date'>日期 時間</td>
+	<td class='mode'>模式</td>
+	<td class='wasteTime'>花費時間</td>
+	<td class='answerNum'>答題數</td>
+	<td class='errorRate'>錯誤率</td>
+	<td class='select'>選擇的題目</td>
+	<td class='error'>答錯的題目</td>
 </tr>
 </table>
-<div width="60%" height=160px style="overflow: scroll;">
-<table>
+<div id='child' style="height:64%; overflow: auto;">
+<table border='1'>
 <?
 	$sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user'");
 	$total = mysql_num_rows($sql);
@@ -88,8 +150,8 @@
 		$row = mysql_fetch_assoc($sql);
 ?>
 <tr>
-	<td><?echo $row['date']." ".$row['time1'];?></td>
-	<td><?
+	<td class='date'><?echo $row['date']." ".$row['time1'];?></td>
+	<td class='mode'><?
 		switch($row['Mode'])
 		{
 			case "Practice":
@@ -121,7 +183,7 @@
 				break;	
 		}
 		?></td>
-	<td><?	
+	<td class='wasteTime'><?	
 	if($row['finish'] == 1){
 		$time1 = $row['time1'];
 		$time2 = $row['time2'];
@@ -132,12 +194,12 @@
 		echo "$hour : $min : $sec";
 	}
 	else{
-		echo "測驗未完成";
+		echo "未完成";
 	}
 	?></td>
-	<td><?echo $row['sum'];?></td>
+	<td class='answerNum'><?echo $row['sum'];?></td>
 
-	<td><?
+	<td class='errorRate'><?
 		if($row['finish'] == 1){
 			if($row["sum"] == 0){
 					echo "無答題";
@@ -147,15 +209,15 @@
 				}
 		}
 		else{
-			echo "測驗未完成";
+			echo "未完成";
 		}
 		?></td>
 		
-	<td><form action="user_select.php" method="post">
+	<td class='select'><form action="user_select.php" method="post">
 		<input type="hidden" name="num" value="<?echo $row['num'];?>">
 		<input type="submit" value="進來看"></form></td>
 
-	<td><form action="user_error.php" method="post">
+	<td class='error'><form action="user_error.php" method="post">
 		<input type="hidden" name="num" value="<?echo $row['num'];?>">
 		<input type="submit" value="進來看"></form></td>
 </tr>
