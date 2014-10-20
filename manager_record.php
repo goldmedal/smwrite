@@ -12,6 +12,7 @@
 	include("connect_db.php");
 	include("header.php");
 	include("db_name.php");
+	$sp = $_GET['sp'];
 
 ?>
 <html>
@@ -30,7 +31,10 @@
 
 #child {
 
-	-webkit-scrollbar: 2px;
+	position: relative;
+	max-height: 64%;
+	width: 80%;
+	overflow: hidden;
 
 }
 
@@ -82,14 +86,19 @@ td.error {
 
 $(document).ready(function(){
 
-	$('#child').perferScrollbar();
+	$('#child').perfectScrollbar();
 
 });
 
 </script>
 
 <body>
-<div class="title">漢字查詢紀錄</div>
+<div class="title">
+<? 
+	if($sp == 0) echo "漢字查詢紀錄";
+	else echo "漢拼查詢記錄";
+?>
+</div>
 <br><br>
 <hr>
 <center>
@@ -97,7 +106,11 @@ $(document).ready(function(){
 選擇欲查詢者(a)：<select name="userlist" size='1' accesskey='a' >
 <?
 	$user = $_GET['userlist'];
-	$user_sql = mysql_query("SELECT DISTINCT id FROM $user_db ORDER BY id") or die(mysql_error());
+	if($sp == 0) {
+		$user_sql = mysql_query("SELECT DISTINCT id FROM $user_db ORDER BY id") or die(mysql_error());
+	}else {
+		$user_sql = mysql_query("SELECT DISTINCT id FROM $user_spell_db ORDER BY id") or die(mysql_error());		
+	}
 	$user_total = mysql_num_rows($user_sql);
 	for($j=0;$j<$user_total;$j++){
 		$user_row = mysql_fetch_assoc($user_sql);
@@ -120,110 +133,113 @@ $(document).ready(function(){
 	<input type="submit" value="弱點分析(w)" accesskey="w">
 	<a href="manager.php" accesskey="r">回選單(r)</a>
 </form>
-<div width="50%" height="80%">
-<table border='1'>
-<tr>
-	<td colspan="7">
-<?
-	if(empty($user)) { echo "尚未選擇查詢目標"; }
-	else { echo $user."的歷史紀錄"; }
+<div>
+	<table border='1'>
+	<tr>
+		<td colspan="7">
+	<?
+		if(empty($user)) { echo "尚未選擇查詢目標"; }
+		else { echo $user."的歷史紀錄"; }
 
-?>
-	</td>
-</tr>
-<tr>
-	<td class='date'>日期 時間</td>
-	<td class='mode'>模式</td>
-	<td class='wasteTime'>花費時間</td>
-	<td class='answerNum'>答題數</td>
-	<td class='errorRate'>錯誤率</td>
-	<td class='select'>選擇的題目</td>
-	<td class='error'>答錯的題目</td>
-</tr>
-</table>
-<div id='child' style="height:64%; overflow: auto;">
-<table border='1'>
-<?
-	$sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user'");
-	$total = mysql_num_rows($sql);
-	for($i=0;$i<$total;$i++){
-		$row = mysql_fetch_assoc($sql);
-?>
-<tr>
-	<td class='date'><?echo $row['date']." ".$row['time1'];?></td>
-	<td class='mode'><?
-		switch($row['Mode'])
-		{
-			case "Practice":
-				echo "自選練習";
-				break;
-			case "ClassifyTest":
-				echo "類別測驗: ".$row['group'];
-				break;
-			case "Group" :			
-				$gr_query = mysql_query("SELECT * FROM $group_db WHERE id = '$row[group]'") or die(mysql_error());
-				$gr_row = mysql_fetch_assoc($gr_query);
-				$gr_total = mysql_num_rows($gr_query);
+	?>
+		</td>
+	</tr>
+	<tr>
+		<td class='date'>日期 時間</td>
+		<td class='mode'>模式</td>
+		<td class='wasteTime'>花費時間</td>
+		<td class='answerNum'>答題數</td>
+		<td class='errorRate'>錯誤率</td>
+		<td class='select'>選擇的題目</td>
+		<td class='error'>答錯的題目</td>
+	</tr>
+	</table>
 
-				if($gr_total>0){ 
-					echo "題組:".$gr_row['name'];
-				}
-				else {
-					echo "題組:".$row['group']."<br>此題組遭刪除!";
-				}
-				break;
-			case "JCTest":
-				echo "JC基本測驗";
-				break;
-			case "Weak":
-				echo "弱點測驗";
-				break;
-			case "HighFailPractice":
-				echo "常錯字練習";
-				break;	
-		}
-		?></td>
-	<td class='wasteTime'><?	
-	if($row['finish'] == 1){
-		$time1 = $row['time1'];
-		$time2 = $row['time2'];
-		$hour = floor((strtotime($time2) - strtotime($time1))/3600);
-		$min = floor(((strtotime($time2) - strtotime($time1))%3600)/60);
-		$sec = floor(((strtotime($time2) - strtotime($time1))%3600)%60);
-	
-		echo "$hour : $min : $sec";
-	}
-	else{
-		echo "未完成";
-	}
-	?></td>
-	<td class='answerNum'><?echo $row['sum'];?></td>
+	<div id='child'>
+	<table border='1'>
+	<?
+		if($sp == 0) $sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user'");
+		else $sql = mysql_query("SELECT * FROM $user_spell_db WHERE id = '$user'");
 
-	<td class='errorRate'><?
+		$total = mysql_num_rows($sql);
+		for($i=0;$i<$total;$i++){
+			$row = mysql_fetch_assoc($sql);
+	?>
+	<tr>
+		<td class='date'><?echo $row['date']." ".$row['time1'];?></td>
+		<td class='mode'><?
+			switch($row['Mode'])
+			{
+				case "Practice":
+					echo "自選練習";
+					break;
+				case "ClassifyTest":
+					echo "類別測驗: ".$row['group'];
+					break;
+				case "Group" :			
+					$gr_query = mysql_query("SELECT * FROM $group_db WHERE id = '$row[group]'") or die(mysql_error());
+					$gr_row = mysql_fetch_assoc($gr_query);
+					$gr_total = mysql_num_rows($gr_query);
+
+					if($gr_total>0){ 
+						echo "題組:".$gr_row['name'];
+					}
+					else {
+						echo "題組:".$row['group']."<br>此題組遭刪除!";
+					}
+					break;
+				case "JCTest":
+					echo "JC基本測驗";
+					break;
+				case "Weak":
+					echo "弱點測驗";
+					break;
+				case "HighFailPractice":
+					echo "常錯字練習";
+					break;	
+			}
+			?></td>
+		<td class='wasteTime'><?	
 		if($row['finish'] == 1){
-			if($row["sum"] == 0){
-					echo "無答題";
-				}else{
-					$error_rate = $row["false_num"]/$row["sum"]*100;
-					echo round($error_rate,2)."%"; 
-				}
+			$time1 = $row['time1'];
+			$time2 = $row['time2'];
+			$hour = floor((strtotime($time2) - strtotime($time1))/3600);
+			$min = floor(((strtotime($time2) - strtotime($time1))%3600)/60);
+			$sec = floor(((strtotime($time2) - strtotime($time1))%3600)%60);
+		
+			echo "$hour : $min : $sec";
 		}
 		else{
 			echo "未完成";
 		}
 		?></td>
-		
-	<td class='select'><form action="user_select.php" method="post">
-		<input type="hidden" name="num" value="<?echo $row['num'];?>">
-		<input type="submit" value="進來看"></form></td>
+		<td class='answerNum'><?echo $row['sum'];?></td>
 
-	<td class='error'><form action="user_error.php" method="post">
-		<input type="hidden" name="num" value="<?echo $row['num'];?>">
-		<input type="submit" value="進來看"></form></td>
-</tr>
-<? } ?>
-</table>
-</div>
+		<td class='errorRate'><?
+			if($row['finish'] == 1){
+				if($row["sum"] == 0){
+						echo "無答題";
+					}else{
+						$error_rate = $row["false_num"]/$row["sum"]*100;
+						echo round($error_rate,2)."%"; 
+					}
+			}
+			else{
+				echo "未完成";
+			}
+			?></td>
+			
+		<td class='select'><form action="user_select.php" method="post">
+			<input type="hidden" name="num" value="<?echo $row['num'];?>">
+			<input type="submit" value="進來看"></form></td>
+
+		<td class='error'><form action="user_error.php" method="post">
+			<input type="hidden" name="num" value="<?echo $row['num'];?>">
+			<input type="submit" value="進來看"></form></td>
+	</tr>
+	<? } ?>
+	</table>
+	</div>
 </div>
 </body>
 </html>

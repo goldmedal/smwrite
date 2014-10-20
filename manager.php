@@ -12,15 +12,7 @@
 
 <html>
 <head>
-<script language=javascript>
-
-	function h_submit(){
-
-		document.getElementById('judge').submit();
-		
-	}
-
-</script>
+	
  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
  <script src="jquery.hotkeys.js"></script>	
@@ -45,10 +37,7 @@
  </ul>
  <ul>
   <li><a href="manager_record.php" accesskey='c'>觀看漢字練習記錄(c)</a></li>
-<form action="manager_spell_record.php" method="get" id="judge">
-	<input type="hidden" name="sp" value=1>
-  <li><a href="#" onclick="h_submit();" accesskey='q'>觀看漢拼練習記錄(q)</a></li>
-</form>
+  <li><a href="manager_record.php?sp=1" accesskey='q'>觀看漢拼練習記錄(q)</a></li>
 </ul>
 </fieldset>
 <?
