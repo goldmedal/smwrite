@@ -33,7 +33,7 @@
 
 	position: relative;
 	max-height: 64%;
-	width: 80%;
+	width: 100%;
 	overflow: hidden;
 
 }
@@ -158,8 +158,8 @@ $(document).ready(function(){
 	<div id='child'>
 	<table border='1'>
 	<?
-		if($sp == 0) $sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user'");
-		else $sql = mysql_query("SELECT * FROM $user_spell_db WHERE id = '$user'");
+		if($sp == 0) $sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user' AND time2 > '0' ORDER BY num DESC");
+		else $sql = mysql_query("SELECT * FROM $user_spell_db WHERE id = '$user' AND time2 > '0' ORDER BY num DESC");
 
 		$total = mysql_num_rows($sql);
 		for($i=0;$i<$total;$i++){

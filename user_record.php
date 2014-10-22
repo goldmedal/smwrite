@@ -15,9 +15,9 @@
 	$sp = $_GET['sp'];
 	
 	if($sp != 1){
-		$sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user'") or die(mysql_error());
+		$sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user' AND time2 > '0' ORDER BY num DESC") or die(mysql_error());
 	}else{
-		$sql = mysql_query("SELECT * FROM $user_spell_db WHERE id = '$user'") or die(mysql_error());
+		$sql = mysql_query("SELECT * FROM $user_spell_db WHERE id = '$user' AND time2 > '0' ORDER BY num DESC") or die(mysql_error());
 	}
 	$total = mysql_num_rows($sql);
 ?>
@@ -26,6 +26,7 @@
 <title> 個人紀錄查詢 </title>
  <link type="text/css" rel="stylesheet" href="mainpage.css"> 
  <meta charset="big5" />
+ <link type="text/css" rel="stylesheet" href="scrollbar_src/perfect-scrollbar.css">  
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
  <script src="jquery.hotkeys.js"></script>	
@@ -36,9 +37,10 @@
 #child {
 
 	position: relative;
-	max-height: 64%;
-	width: 80%;
+	height: 64%;
+	width: 100%;
 	overflow: hidden;
+	
 
 }
 
@@ -83,9 +85,8 @@ td.error {
 	width: 113px;
 
 }
-
+	
 </style> 
-</head>
 <script>
 
 $(document).ready(function(){
@@ -95,6 +96,8 @@ $(document).ready(function(){
 });
 
 </script>
+</head>
+
 
 <body>
 <div class="title">查詢個人紀錄</div>
@@ -107,18 +110,10 @@ $(document).ready(function(){
 	<input type="hidden" name="sp" value="<?echo $sp;?>">
 	<input type="submit" value="弱點分析(w)" accesskey="w">
 </form>
+
 <input name="Submit" type="button" id="Submit" onClick="javascript:history.back(1)" value="回一上頁(r)" accesskey="r"/><br>
 <div>
 	<table border='1'>
-	<tr>
-		<td colspan="7">
-	<?
-		if(empty($user)) { echo "尚未選擇查詢目標"; }
-		else { echo $user."的歷史紀錄"; }
-
-	?>
-		</td>
-	</tr>
 	<tr>
 		<td class='date'>日期 時間</td>
 		<td class='mode'>模式</td>
