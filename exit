@@ -1,0 +1,71 @@
+[33mcommit 3cb570b659842074a973eae08226e70c5ae4de0f[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Mon Oct 20 14:54:31 2014 +0800
+
+    user_record's scrollbar no display
+
+[33mcommit b11b99c333f5f43b9d159beafaf37f3e2cfca936[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Mon Oct 13 14:58:06 2014 +0800
+
+    perfer scrollbar add
+
+[33mcommit a355618363cf56094bc1e6d06fd3c52f31a6b99c[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Mon Oct 13 14:57:16 2014 +0800
+
+    manager record scrollbar update
+
+[33mcommit 52cd01bff3e9d2ff97840b5fa57412957a59136b[m
+Author: unknown <liugs963@gmail.com>
+Date:   Wed Oct 8 16:51:08 2014 +0800
+
+    debug: select and error back to record
+
+[33mcommit 61034deee5c71923e6279f8178cb6c5d82d73073[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Tue Jun 3 14:45:37 2014 +0800
+
+    answer_check update
+
+[33mcommit 53be941841515e236e3329d92d7b23ab90fd02ec[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Fri May 30 11:49:08 2014 +0800
+
+    keydwon function
+
+[33mcommit 9a90435888ee6afed6b918a6d736c8cba05fba55[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Fri May 23 11:59:07 2014 +0800
+
+    answerJs unifinished
+
+[33mcommit fc677142c489461241a0a4dfd57d054d7028239c[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Fri May 16 12:02:44 2014 +0800
+
+    getClassLevel
+
+[33mcommit e647e526ee6e10fe0ad4f5294b46b75a0f51927c[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Wed May 14 11:51:10 2014 +0800
+
+    answer_cgi
+
+[33mcommit c4a6e22064d42665ff0e2c31efc4b6520041eb1c[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Fri May 9 11:56:31 2014 +0800
+
+    question function edit
+
+[33mcommit 02c2c7f8fd25e63ce304b17dd4820418ca0621ef[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Fri May 9 10:27:36 2014 +0800
+
+    init
+
+[33mcommit 69abec7419ca72af892b520753388ab2125bcdb5[m
+Author: goldmedal <liugs963@gmail.com>
+Date:   Thu May 8 19:21:50 2014 -0700
+
+    Initial commit

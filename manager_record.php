@@ -90,6 +90,29 @@ $(document).ready(function(){
 
 });
 
+function record(_user, _mode, _sp){
+
+	$.ajax({
+	
+		url: "record.php",
+		type: "get",
+		dataType: "html",
+		data: { user: _user, mode: _mode, sp: _sp },
+		success: function(data){
+		
+			$('#child').html(data);
+		
+		},
+		error: function(xhr){
+		
+			alert(xhr.status);
+		
+		}
+	
+	});
+
+}
+
 </script>
 
 <body>
@@ -167,7 +190,7 @@ $(document).ready(function(){
 	?>
 	<tr>
 		<td class='date'><?echo $row['date']." ".$row['time1'];?></td>
-		<td class='mode'><?
+		<td class='mode' id='modeTitle'><?
 			switch($row['Mode'])
 			{
 				case "Practice":
