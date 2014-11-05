@@ -13,6 +13,7 @@
 	include("header.php");
 	include("db_name.php");
 	$sp = $_GET['sp'];
+	$user = $_GET['userlist'];	
 
 ?>
 <html>
@@ -86,7 +87,16 @@ td.error {
 
 $(document).ready(function(){
 
+	var user = '<? echo $user; ?>';
+	var sp = <? echo $sp; ?>;
 	$('#child').perfectScrollbar();
+	$('#modeSelect > .all').click(function() { record(user, 'all', sp)});
+	$('#modeSelect > .Practice').click(function() { record(user, 'Practice', sp)});
+	$('#modeSelect > .ClassifyTest').click(function() { record(user, 'ClassifyTest', sp)});
+	$('#modeSelect > .Group').click(function() { record(user, 'Group', sp)});
+	$('#modeSelect > .JCTest').click(function() { record(user, 'JCTest', sp)});
+	$('#modeSelect > .Weak').click(function() { record(user, 'Weak', sp)});
+	$('#modeSelect > .HighFailPractice').click(function() { record(user, 'HighFailPractice', sp)});
 
 });
 
@@ -128,7 +138,7 @@ function record(_user, _mode, _sp){
 <form action="manager_record.php" method="get">
 選擇欲查詢者(a)：<select name="userlist" size='1' accesskey='a' >
 <?
-	$user = $_GET['userlist'];
+	
 	if($sp == 0) {
 		$user_sql = mysql_query("SELECT DISTINCT id FROM $user_db ORDER BY id") or die(mysql_error());
 	}else {
@@ -169,7 +179,17 @@ function record(_user, _mode, _sp){
 	</tr>
 	<tr>
 		<td class='date'>日期 時間</td>
-		<td class='mode'>模式</td>
+		<td class='mode'>
+			<select id="modeSelect">
+				<option value="all" class='all'>所有模式</option>
+				<option value="Practice" class='Practive'>練習模式</option>
+				<option value="ClassifyTest" class= 'ClassifyTest'>類別測驗</option>
+				<option value="Group" class='Group'>題組測驗</option>
+				<option value="JCTest" class='JCTest'>JC測驗</option>
+				<option value="Weak" class='Weak'>弱點測驗</option>
+				<option value="HighFailPractice" class='HighFailPractice'>常錯字練習</option>
+			</select>
+		</td>
 		<td class='wasteTime'>花費時間</td>
 		<td class='answerNum'>答題數</td>
 		<td class='errorRate'>錯誤率</td>

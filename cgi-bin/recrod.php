@@ -11,8 +11,13 @@
 
 <table border='1'>
 <?
-	if($sp == 0) $sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user' AND time2 > '0' AND mode = '$mode' ORDER BY num DESC");
-	else $sql = mysql_query("SELECT * FROM $user_spell_db WHERE id = '$user' AND time2 > '0' AND mode = '$mode'  ORDER BY num DESC");
+	if($mode != 'all'){
+		if($sp == 0) $sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user' AND time2 > '0' AND mode = '$mode' ORDER BY num DESC");
+		else $sql = mysql_query("SELECT * FROM $user_spell_db WHERE id = '$user' AND time2 > '0' AND mode = '$mode'  ORDER BY num DESC");
+	}else {
+		if($sp == 0) $sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user' AND time2 > '0' ORDER BY num DESC");
+		else $sql = mysql_query("SELECT * FROM $user_spell_db WHERE id = '$user' AND time2 > '0' ORDER BY num DESC");
+	}
 
 	$total = mysql_num_rows($sql);
 	for($i=0;$i<$total;$i++){
