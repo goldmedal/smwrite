@@ -1,8 +1,7 @@
 <?php
 
-	include("connect_db.php");
-	include("header.php");
-	include("db_name.php");
+	include("../connect_db.php");
+	include("../db_name.php");
 	$user = $_GET['user'];
 	$mode = $_GET['mode'];
 	$sp = $_GET['sp'];

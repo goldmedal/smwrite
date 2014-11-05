@@ -12,8 +12,10 @@
 	include("connect_db.php");
 	include("header.php");
 	include("db_name.php");
-	$sp = $_GET['sp'];
+	if($_GET['sp'] == 0) $sp = 0;
+	else $sp = $_GET['sp'];
 	$user = $_GET['userlist'];	
+
 
 ?>
 <html>
@@ -21,7 +23,7 @@
 <title> 魁琩高 </title>
  <link type="text/css" rel="stylesheet" href="mainpage.css"> 
  <link type="text/css" rel="stylesheet" href="scrollbar_src/perfect-scrollbar.css">  
-  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+ <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
  <script src="jquery.hotkeys.js"></script>	
  <script src="Link.js"></script>
@@ -90,21 +92,27 @@ $(document).ready(function(){
 	var user = '<? echo $user; ?>';
 	var sp = <? echo $sp; ?>;
 	$('#child').perfectScrollbar();
-	$('#modeSelect > .all').click(function() { record(user, 'all', sp)});
-	$('#modeSelect > .Practice').click(function() { record(user, 'Practice', sp)});
-	$('#modeSelect > .ClassifyTest').click(function() { record(user, 'ClassifyTest', sp)});
-	$('#modeSelect > .Group').click(function() { record(user, 'Group', sp)});
-	$('#modeSelect > .JCTest').click(function() { record(user, 'JCTest', sp)});
-	$('#modeSelect > .Weak').click(function() { record(user, 'Weak', sp)});
-	$('#modeSelect > .HighFailPractice').click(function() { record(user, 'HighFailPractice', sp)});
+	$('#modeSelect').change(function() {
 
+		var val = this.value;
+		record(user, val, sp);
+
+	});
+/*	$('#modeSelect > .all').click(function() { record(user, 'all', sp); alert('hi'); });
+	$('#modeSelect > .Practice').click(function() { record(user, 'Practice', sp); });
+	$('#modeSelect > .ClassifyTest').click(function() { record(user, 'ClassifyTest', sp); });
+	$('#modeSelect > .Group').click(function() { record(user, 'Group', sp); });
+	$('#modeSelect > .JCTest').click(function() { record(user, 'JCTest', sp); });
+	$('#modeSelect > .Weak').click(function() { record(user, 'Weak', sp); });
+	$('#modeSelect > .HighFailPractice').click(function() { record(user, 'HighFailPractice', sp); });
+*/
 });
 
 function record(_user, _mode, _sp){
 
 	$.ajax({
 	
-		url: "record.php",
+		url: "cgi-bin/	record.php",
 		type: "get",
 		dataType: "html",
 		data: { user: _user, mode: _mode, sp: _sp },
@@ -135,7 +143,12 @@ function record(_user, _mode, _sp){
 <br><br>
 <hr>
 <center>
+<? if($sp == 0) { ?>
 <form action="manager_record.php" method="get">
+<? }else{?>
+<form action="manager_record.php" method="get">
+<input type='hidden' value='1' name='sp'>
+<? } ?>
 匡拒饼琩高(a)<select name="userlist" size='1' accesskey='a' >
 <?
 	
@@ -180,15 +193,19 @@ function record(_user, _mode, _sp){
 	<tr>
 		<td class='date'>ら戳 丁</td>
 		<td class='mode'>
+<? if($sp == 0) { ?>		
 			<select id="modeSelect">
-				<option value="all" class='all'>┮Τ家Α</option>
-				<option value="Practice" class='Practive'>絤策家Α</option>
-				<option value="ClassifyTest" class= 'ClassifyTest'>摸代喷</option>
-				<option value="Group" class='Group'>肈舱代喷</option>
-				<option value="JCTest" class='JCTest'>JC代喷</option>
-				<option value="Weak" class='Weak'>畓翴代喷</option>
-				<option value="HighFailPractice" class='HighFailPractice'>盽岿絤策</option>
+				<option value="all">┮Τ家Α</option>
+				<option value="Practice">絤策家Α</option>
+				<option value="ClassifyTest">摸代喷</option>
+				<option value="Group">肈舱代喷</option>
+				<option value="JCTest">JC代喷</option>
+				<option value="Weak">畓翴代喷</option>
+				<option value="HighFailPractice">盽岿絤策</option>
 			</select>
+<? }else{ ?>
+			家Α
+<? } ?>			
 		</td>
 		<td class='wasteTime'>禣丁</td>
 		<td class='answerNum'>氮肈计</td>
