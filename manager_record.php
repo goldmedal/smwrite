@@ -22,68 +22,16 @@
 <head>
 <title> 紀錄查詢 </title>
  <link type="text/css" rel="stylesheet" href="mainpage.css"> 
- <link type="text/css" rel="stylesheet" href="scrollbar_src/perfect-scrollbar.css">  
+ <link type="text/css" rel="stylesheet" href="scrollbar_src/perfect-scrollbar.css"> 
+ <link rel="stylesheet" href="stylesheet/record.css"> 
  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
  <script src="jquery.hotkeys.js"></script>	
  <script src="Link.js"></script>
  <script src="scrollbar_src/perfect-scrollbar.js"></script>
- 
+ <script src="js/record.js"></script>
  <meta charset="big5" />
-<style>
 
-#child {
-
-	position: relative;
-	max-height: 64%;
-	width: 100%;
-	overflow: hidden;
-
-}
-
-td.date {
-
-	width: 114px;
-
-}
-
-td.mode {
-
-	width: 95px;
-
-}
-	
-td.wasteTime {
-
-	width: 95px;
-
-}	
-
-td.answerNum {
-
-	width: 83px;
-
-}
-
-td.errorRate {
-
-	width: 83px;
-
-}
-
-td.select {
-
-	width: 113px;
-
-}
-
-td.error {
-
-	width: 113px;
-
-}
-
-</style> 
 </head>
 <script>
 
@@ -98,38 +46,9 @@ $(document).ready(function(){
 		record(user, val, sp);
 
 	});
-/*	$('#modeSelect > .all').click(function() { record(user, 'all', sp); alert('hi'); });
-	$('#modeSelect > .Practice').click(function() { record(user, 'Practice', sp); });
-	$('#modeSelect > .ClassifyTest').click(function() { record(user, 'ClassifyTest', sp); });
-	$('#modeSelect > .Group').click(function() { record(user, 'Group', sp); });
-	$('#modeSelect > .JCTest').click(function() { record(user, 'JCTest', sp); });
-	$('#modeSelect > .Weak').click(function() { record(user, 'Weak', sp); });
-	$('#modeSelect > .HighFailPractice').click(function() { record(user, 'HighFailPractice', sp); });
-*/
+
 });
 
-function record(_user, _mode, _sp){
-
-	$.ajax({
-	
-		url: "cgi-bin/	record.php",
-		type: "get",
-		dataType: "html",
-		data: { user: _user, mode: _mode, sp: _sp },
-		success: function(data){
-		
-			$('#child').html(data);
-		
-		},
-		error: function(xhr){
-		
-			alert(xhr.status);
-		
-		}
-	
-	});
-
-}
 
 </script>
 

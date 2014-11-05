@@ -1,0 +1,50 @@
+#child {
+
+	position: relative;
+	max-height: 64%;
+	width: 100%;
+	overflow: hidden;
+
+}
+
+td.date {
+
+	width: 114px;
+
+}
+
+td.mode {
+
+	width: 95px;
+
+}
+	
+td.wasteTime {
+
+	width: 95px;
+
+}	
+
+td.answerNum {
+
+	width: 83px;
+
+}
+
+td.errorRate {
+
+	width: 83px;
+
+}
+
+td.select {
+
+	width: 113px;
+
+}
+
+td.error {
+
+	width: 113px;
+
+}

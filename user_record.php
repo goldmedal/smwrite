@@ -12,7 +12,8 @@
 	include("header.php");
 	include("db_name.php");
 	$user = $_SESSION['sid'];
-	$sp = $_GET['sp'];
+	if($_GET['sp'] == 0) $sp = 0;
+	else $sp = $_GET['sp'];
 	
 	if($sp != 1){
 		$sql = mysql_query("SELECT * FROM $user_db WHERE id = '$user' AND time2 > '0' ORDER BY num DESC") or die(mysql_error());
@@ -26,72 +27,27 @@
 <title> 個人紀錄查詢 </title>
  <link type="text/css" rel="stylesheet" href="mainpage.css"> 
  <meta charset="big5" />
- <link type="text/css" rel="stylesheet" href="scrollbar_src/perfect-scrollbar.css">  
-  <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+ <link type="text/css" rel="stylesheet" href="scrollbar_src/perfect-scrollbar.css">
+ <link rel="stylesheet" href="stylesheet/record.css">
+ <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
  <script src="jquery.hotkeys.js"></script>	
  <script src="Link.js"></script>
  <script src="scrollbar_src/perfect-scrollbar.js"></script>
-<style>
-
-#child {
-
-	position: relative;
-	height: 64%;
-	width: 100%;
-	overflow: hidden;
-	
-
-}
-
-td.date {
-
-	width: 114px;
-
-}
-
-td.mode {
-
-	width: 95px;
-
-}
-	
-td.wasteTime {
-
-	width: 95px;
-
-}	
-
-td.answerNum {
-
-	width: 83px;
-
-}
-
-td.errorRate {
-
-	width: 83px;
-
-}
-
-td.select {
-
-	width: 113px;
-
-}
-
-td.error {
-
-	width: 113px;
-
-}
-	
-</style> 
-<script>
+ <script src="js/record.js"></script>
+ <script>
 
 $(document).ready(function(){
 
+	var user = '<? echo $user; ?>';
+	var sp = <? echo $sp; ?>;
 	$('#child').perfectScrollbar();
+	$('#modeSelect').change(function() {
+
+		var val = this.value;
+		record(user, val, sp);
+
+	});
 
 });
 
@@ -116,7 +72,21 @@ $(document).ready(function(){
 	<table border='1'>
 	<tr>
 		<td class='date'>日期 時間</td>
-		<td class='mode'>模式</td>
+		<td class='mode'>
+<? if($sp == 0) { ?>		
+			<select id="modeSelect">
+				<option value="all">所有模式</option>
+				<option value="Practice">練習模式</option>
+				<option value="ClassifyTest">類別測驗</option>
+				<option value="Group">題組測驗</option>
+				<option value="JCTest">JC測驗</option>
+				<option value="Weak">弱點測驗</option>
+				<option value="HighFailPractice">常錯字練習</option>
+			</select>
+<? }else{ ?>
+			模式
+<? } ?>					
+		</td>
 		<td class='wasteTime'>花費時間</td>
 		<td class='answerNum'>答題數</td>
 		<td class='errorRate'>錯誤率</td>
