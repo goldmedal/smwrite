@@ -1,9 +1,7 @@
-<! DOCTYPE html>
+<!DOCTYPE html>
 
 <?php
 
-	require "C:\AppServ\www\screw\smwrite\connect_db.php" ;
-	require "C:\AppServ\www\screw\smwrite\db_name.php" ;
 	require "C:\AppServ\www\screw\smwrite\funcAnsUser.php";
 
 	$user = $_GET['sid']; 
