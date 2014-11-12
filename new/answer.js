@@ -1,16 +1,10 @@
-$(document).ready( function() {
-
-	document.onkeydown = keyFunction;
-	
-}
-
-function nextQuestion(_qid) {
+function checkAnswer(_uid, _qid, _ans, _final) {
 
 	$.ajax({
-		url: 'answer_check.php',
+		url: 'new_answer_check.php',
 		type: 'post',
-		data: { qid : _qid },
-		success: { },
+		data: { qid : _qid, ans: _ans },
+		success: {  },
 		error: { },		
 
 
