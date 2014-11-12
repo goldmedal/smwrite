@@ -13,7 +13,7 @@
 	$user = $_POST['uid'];
 	$userAns = $_POST['ans'];
 	$qid = $_POST['qid'];
-	$final = $_POST['final'];
+	$last = $_POST['last'];
 
 	// check ans
 
@@ -22,10 +22,10 @@
 
 		return json_encode(array('Status' => 1, 'Chinese' => $qrow['Chinese'], 'Taiwanese' => $qrow['Ans'], 'Spell' => $qrow['Spell'], 'English' => $qrow['English']));
 
-	}else if($final != 1) {  // error and not final
+	}else if($last != 1) {  // error and not final
 
 		recordError($user, $qid);
-		return json_encode(array('Status' => 0));
+		return json_encode(array('Status' => 0, 'Remind' => $qrow['remind'];));
 
 	} else { // error and final
 

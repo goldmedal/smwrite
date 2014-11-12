@@ -2,17 +2,21 @@
 
 <?php
 
+	/*
+		1. read the nowNum from GET
+		2. get question
+	*/
+
 	require "C:\AppServ\www\screw\smwrite\funcAnsUser.php";
 
 	$user = $_GET['sid']; 
 	$uquery = mysql_query("SELECT `num`, `question` FROM `$user_db` WHERE `id` = '$user' AND `end` = '0'") or die(mysql_error());
 	$user_row = mysql_fetch_assoc($uquery);
 	$total = count($user_row['question']);
-	$nowNum = 0;
+	$nowNum = ($_GET['nowNum'] > 0)?$_GET['nowNum']:0;
 	$firstQid = getNowQid($nowNum, $user_row['question']);
 	$firstQrow = getQuestion($firstQid);
 
-	
 ?>
 <html>
 	<head>
@@ -21,6 +25,23 @@
 		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 		<script src="jquery.hotkeys.js"></script>
 		<script src="js/answer.js"></script>
+		<script>
+			$(document).ready( function() {
+
+				var uid = "<? echo empty($_GET['sid'])?'none':$_GET['sid']; ?>";
+				var qid = "<? echo empty($nowNum)?0:$nowNum; ?>";
+
+				document.onkeydown = keyFunction;
+				var answerChecker = checkClousre();
+				$('#submitAnswer').click(function() {
+
+					var ans = $('#userAnswer').val();
+					answerChecker(uid, qid, ans);
+
+				})
+				
+			}
+		</script>
 		<link rel='stylesheet' href='answer.css' />
 		<meta charset='big5' />
 	</head>
