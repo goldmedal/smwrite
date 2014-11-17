@@ -7,7 +7,7 @@
 	4. if error and final, return remind 
 */
 
-	require "C:\AppServ\www\screw\smwrite\funcAnsUser.php";
+//	require "C:\AppServ\www\screw\smwrite\funcAnsUser.php";
 	require "funcAnsUser.php"
 
 	$user = $_POST['uid'];

@@ -7,15 +7,15 @@
 		2. get question
 	*/
 
-	require "C:\AppServ\www\screw\smwrite\funcAnsUser.php";
-
+	require_once "funcAnsUser.php";
 	$user = $_GET['sid']; 
 	$uquery = mysql_query("SELECT `num`, `question` FROM `$user_db` WHERE `id` = '$user' AND `end` = '0'") or die(mysql_error());
 	$user_row = mysql_fetch_assoc($uquery);
 	$total = count($user_row['question']);
 	$nowNum = ($_GET['nowNum'] > 0)?$_GET['nowNum']:0;
+	echo $user_row['question'];
 	$firstQid = getNowQid($nowNum, $user_row['question']);
-	$firstQrow = getQuestion($firstQid);
+	$firstQrow = getQuesInformation($firstQid);
 
 ?>
 <html>
