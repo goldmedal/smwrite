@@ -8,7 +8,7 @@ function checkClosure(){
 		$.ajax({
 			url: 'new_answer_check.php',
 			type: 'post',
-			data: { qid : _qid, ans: _ans, last: _last },
+			data: { qid : _qid, ans: _ans, uid: _uid },
 			datatype: 'json',
 			success: function(data){
 
@@ -26,7 +26,7 @@ function checkClosure(){
 						switch (errorNum){
 							case 0: 
 							case 1: errorMeg = "答錯了!";break;
-							case 2: errorMeg = "不行不行!"break;
+							case 2: errorMeg = "不行不行!";break;
 							case 3: 
 								errorMeg = "吼 ~ 偷偷提示你好了 "+data.Remind;
 								last = 1; // next time is the last time
@@ -57,5 +57,5 @@ function keyFunction() {
 		$('#audioQuestion').play();	
 	}else if(event.keyCode==32){
 
-
+	}
 }

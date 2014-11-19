@@ -8,12 +8,13 @@
 	*/
 
 	require_once "funcAnsUser.php";
-	$user = $_GET['sid']; 
+//	$user = $_GET['sid']; 
+	$user = "LKS201111";
 	$uquery = mysql_query("SELECT `num`, `question` FROM `$user_db` WHERE `id` = '$user' AND `end` = '0'") or die(mysql_error());
 	$user_row = mysql_fetch_assoc($uquery);
-	$total = count($user_row['question']);
+	$questionRow = explode(",", $user_row['question']);
+	$total = count($questionRow);
 	$nowNum = ($_GET['nowNum'] > 0)?$_GET['nowNum']:0;
-	echo $user_row['question'];
 	$firstQid = getNowQid($nowNum, $user_row['question']);
 	$firstQrow = getQuesInformation($firstQid);
 
@@ -23,16 +24,17 @@
 		<title>Screw - SMwrite台語漢字檢測系統 - 測驗中</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 		<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-		<script src="jquery.hotkeys.js"></script>
-		<script src="js/answer.js"></script>
+		<script src="../jquery.hotkeys.js"></script>
+		<script src="answer.js"></script>
 		<script>
 			$(document).ready( function() {
 
-				var uid = "<? echo empty($_GET['sid'])?'none':$_GET['sid']; ?>";
-				var qid = "<? echo empty($nowNum)?0:$nowNum; ?>";
+			//	var uid = "<? echo empty($_GET['sid'])?'none':$_GET['sid']; ?>";
+				var uid = "LKS201111";
+				var qid = "<? echo $firstQid ?>";
 
 				document.onkeydown = keyFunction;
-				var answerChecker = checkClousre();
+				var answerChecker = checkClosure();
 				$('#submitAnswer').click(function() {
 
 					var ans = $('#userAnswer').val();
@@ -40,7 +42,7 @@
 
 				})
 				
-			}
+			});
 		</script>
 		<link rel='stylesheet' href='answer.css' />
 		<meta charset='big5' />
@@ -60,13 +62,13 @@
 				<section id="idPart">題庫代碼: 
 					<span id="nowQid">
 					<?
-						$ClassLevel = getClassLevel($firstQrow['classfi'], $firstQrow['level']);
-						echo $ClassLevel.$firstQrow['num'];
+						$ClassLevel = getClassLevel($firstQrow['Class'], $firstQrow['Level']);
+						echo $ClassLevel.$firstQrow['Num'];
 					?>
 					</span>
 				</section>
 				<audio id="audioQuestion" controls autoplay preload>
-					<source src="<?echo $firstQrow['DataSource']; ?>">
+					<source src="../<?echo $firstQrow['DataSource']; ?>">
 				</audio>
 				<section id="ansPart">
 					<label>請輸入答案(a): </label>
@@ -74,8 +76,6 @@
 					<button id='submitAnswer'>送出</button>
 				</section>
 			</article>
-			
-
 		</div>
 		
 		<aside>

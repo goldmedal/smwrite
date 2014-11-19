@@ -8,12 +8,12 @@
 */
 
 //	require "C:\AppServ\www\screw\smwrite\funcAnsUser.php";
-	require "funcAnsUser.php"
+	require_once "funcAnsUser.php";
 
 	$user = $_POST['uid'];
 	$userAns = $_POST['ans'];
 	$qid = $_POST['qid'];
-	$last = $_POST['last'];
+	// $last = $_POST['last'];
 
 	// check ans
 
@@ -24,8 +24,9 @@
 
 	}else if($last != 1) {  // error and not final
 
+		countError($uid,$qid);
 		recordError($user, $qid);
-		return json_encode(array('Status' => 0, 'Remind' => $qrow['remind'];));
+		return json_encode(array('Status' => 0, 'Remind' => $qrow['remind']));
 
 	} else { // error and final
 

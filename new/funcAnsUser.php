@@ -14,28 +14,32 @@
 	}
 
 	function countError ($uid, $qid) {
-
-		$uquery = mysql_query("UPDATE `$user_db` SET `false_time` = $utime+1 WHERE `num` = '$uid'") or die(mysql_error());
-		$qquery = mysql_query("UPDATE `$question_db` SET `False_time` = $qtime+1 WHERE `num` = '$qid'") or die(mysql_error());
-		
+		global $user_db;
+		global $question_db;
+		$uquery = mysql_query("UPDATE `$user_db` SET `false_time` = false_time+1 WHERE `num` = '$uid' AND `end` = '0'") or die(mysql_error());
+		$qquery = mysql_query("UPDATE `$question_db` SET `False_time` = False_time+1 WHERE `id` = '$qid'") or die(mysql_error());
+		echo $qid."counted";
 	}
 
 	function recordError ($uid, $qid) {
 	
-		$uquery = mysql_query("SELECT `error_qu` FROM `$user_db` WHERE `num` = '$uid'") or die(mysql_error());
+		global $user_db;
+		echo $uid;
+		$uquery = mysql_query("SELECT `error_qu` FROM `$user_db` WHERE `id` = '$uid' AND `end` = '0'") or die(mysql_error());
 		$user_row = mysql_fetch_assoc($uquery);
 		$error_row = explode(",", $user_row['error_qu']);
 		$cont = count($error_row);
 		$error_row[$cont] = $qid;
 		$new_row = implode(",", $error_row);
-		$uquery = mysql_query("UPDATE `$user_db` SET `error_qu` WHERE `num` = '$uid'") or die(mysql_error());
+		$uquery = mysql_query("UPDATE `$user_db` SET `error_qu` WHERE `id` = '$uid' AND `end` = '0'") or die(mysql_error());
 	
 	}
 	
 		
 	function getClassLevel($class, $level) {
 	
-		$cl_query = "SELECT * FROM $classfi_db WHERE id =".$class;
+		global $classfi_db;
+		$cl_query = "SELECT * FROM `$classfi_db` WHERE `id` ='".$class."'";
 		$cl_result = mysql_query($cl_query) or die(mysql_error());
 		$cl_row = mysql_fetch_assoc($cl_result);
 		
@@ -50,9 +54,10 @@
 
 	function getNowQId($nowNum, $userQuestion){
 
-		if($nowNum < count($userQuestion)){
+		$questionRow = explode(",", $userQuestion);
+		if($nowNum < count($questionRow)){
 
-			return $userQuestion[$nowNum];
+			return $questionRow[$nowNum];
 
 		} else {
 
