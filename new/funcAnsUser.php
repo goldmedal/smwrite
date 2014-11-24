@@ -14,24 +14,24 @@
 	}
 
 	function countError ($uid, $qid) {
+
 		global $user_db;
 		global $question_db;
 		$uquery = mysql_query("UPDATE `$user_db` SET `false_time` = false_time+1 WHERE `num` = '$uid' AND `end` = '0'") or die(mysql_error());
 		$qquery = mysql_query("UPDATE `$question_db` SET `False_time` = False_time+1 WHERE `id` = '$qid'") or die(mysql_error());
-		echo $qid."counted";
+
 	}
 
 	function recordError ($uid, $qid) {
 	
 		global $user_db;
-		echo $uid;
-		$uquery = mysql_query("SELECT `error_qu` FROM `$user_db` WHERE `id` = '$uid' AND `end` = '0'") or die(mysql_error());
+		$uquery = mysql_query("SELECT `error_qu` FROM `$user_db` WHERE id = '$uid' AND `end` = '0'") or die(mysql_error());
 		$user_row = mysql_fetch_assoc($uquery);
 		$error_row = explode(",", $user_row['error_qu']);
 		$cont = count($error_row);
 		$error_row[$cont] = $qid;
 		$new_row = implode(",", $error_row);
-		$uquery = mysql_query("UPDATE `$user_db` SET `error_qu` WHERE `id` = '$uid' AND `end` = '0'") or die(mysql_error());
+		$uquery = mysql_query("UPDATE `$user_db` SET `error_qu` = '$new_row' WHERE id = '$uid' AND `end` = '0'") or die(mysql_error());
 	
 	}
 	

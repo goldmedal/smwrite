@@ -11,7 +11,6 @@ function checkClosure(){
 			data: { qid : _qid, ans: _ans, uid: _uid },
 			datatype: 'json',
 			success: function(data){
-
 				switch(data.Status){
 					case 1:   // right
 						$('#answer').html(" \

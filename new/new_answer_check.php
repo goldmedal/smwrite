@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 	1. check answer. 
@@ -20,17 +20,25 @@
 	$qrow = getQuesInformation($qid);
 	if(strcasecmp($userAns, $qrow['ANS']) == 0){  // right
 
-		return json_encode(array('Status' => 1, 'Chinese' => $qrow['Chinese'], 'Taiwanese' => $qrow['Ans'], 'Spell' => $qrow['Spell'], 'English' => $qrow['English']));
+		echo json_encode(array(
+			'Status' => 1, 'Chinese' => $qrow['Chinese'], 
+			'Taiwanese' => $qrow['Ans'], 'Spell' => $qrow['Spell'], 
+			'English' => $qrow['English']
+			));
 
 	}else if($last != 1) {  // error and not final
 
-		countError($uid,$qid);
+		countError($user,$qid);
 		recordError($user, $qid);
-		return json_encode(array('Status' => 0, 'Remind' => $qrow['remind']));
+		echo json_encode(array('Status' => 0, 
+			'Remind' => $qrow['remind']
+			));
 
 	} else { // error and final
 
-		return json_encode(array('Status' => 0, 'Ans' => $qrow['ANS']));
+		echo json_encode(array('Status' => 0, 
+			'Ans' => $qrow['ANS']
+			));
 
 	}
 
