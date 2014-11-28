@@ -13,12 +13,12 @@
 	$user = $_POST['uid'];
 	$userAns = $_POST['ans'];
 	$qid = $_POST['qid'];
-	// $last = $_POST['last'];
+	$last = $_POST['last'];
 
 	// check ans
 
 	$qrow = getQuesInformation($qid);
-	if(strcasecmp($userAns, $qrow['ANS']) == 0){  // right
+	if(strcasecmp($userAns, $qrow['Ans']) == 0){  // right
 
 		echo json_encode(array(
 			'Status' => 1, 'Chinese' => $qrow['Chinese'], 
@@ -37,7 +37,7 @@
 	} else { // error and final
 
 		echo json_encode(array('Status' => 0, 
-			'Ans' => $qrow['ANS']
+			'Ans' => $qrow['Ans']
 			));
 
 	}
