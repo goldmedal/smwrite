@@ -18,6 +18,7 @@
 	// check ans
 
 	$qrow = getQuesInformation($qid);
+	
 	if(strcasecmp($userAns, $qrow['Ans']) == 0){  // right
 
 		echo json_encode(array(
@@ -36,9 +37,13 @@
 
 	} else { // error and final
 
+
+		$ans = mb_detect_encoding($qrow['Ans']);
 		echo json_encode(array('Status' => 0, 
-			'Ans' => $qrow['Ans']
+			'Ans' => $ans
 			));
+
+	//	echo json_encode($qrow);
 
 	}
 
