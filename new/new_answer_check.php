@@ -37,10 +37,8 @@
 
 	} else { // error and final
 
-
-		$ans = mb_detect_encoding($qrow['Ans']);
 		echo json_encode(array('Status' => 0, 
-			'Ans' => $ans
+			'Ans' => $qrow['Ans']
 			));
 
 	//	echo json_encode($qrow);

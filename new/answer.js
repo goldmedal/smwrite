@@ -15,10 +15,10 @@ function checkClosure(){
 					case 1:   // right
 						$('#answer').html(" \
 							恭喜你答對了!<br> \
-							國語: "+data.Chinese+" 台語: "+data.Taiwanese+" \
+							國語: "+data.Chinese+" 台語: "+data.Taiwanese+"<br> \
 							拼音: "+data.Spell+" 英文: "+data.English+" \
 						");
-						/***  add check final function ***/
+						/***  add check final keyFunctionion ***/
 						break;
 					case 0: // error not final
 						var errorMeg;
@@ -48,6 +48,43 @@ function checkClosure(){
 	return checkAnswer;
 
 }
+
+function checkFinal(_qid, _uid){
+
+	 $.ajax({
+
+		url: 'new_answer_check.php',
+		type: 'post',
+		data: { qid : _qid,  uid: _uid },
+		dataType: 'json',
+		success: function(data){		
+
+			if(data.Final == 1){
+
+				/* End */
+
+			}else{
+
+				/* next qustion */
+
+			}
+
+		},
+		error: function(xhr){
+			console.log(xhr.status);
+		}
+
+
+
+	 });
+
+}
+
+function nextQuestion(){
+
+
+}
+
 
 
 function keyFunction() {
