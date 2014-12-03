@@ -82,6 +82,7 @@ function checkFinal(_qid, _uid){
 
 function nextQuestion(){
 
+	/*  */
 
 }
 
@@ -94,4 +95,5 @@ function keyFunction() {
 	}else if(event.keyCode==32){
 
 	}
+
 }
