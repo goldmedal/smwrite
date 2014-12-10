@@ -1,6 +1,6 @@
 <?php
 
-	require_once('../connect_db.php');
+	require_once('connect_db.php');
 	require_once('../db_name.php');
 	
 	function getQuesInformation ($qid) {

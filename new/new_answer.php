@@ -18,6 +18,15 @@
 	$firstQid = getNowQid($nowNum, $user_row['question']);
 	$firstQrow = getQuesInformation($firstQid);
 
+	/* record start time */
+	
+	if($nowNum == 0) {
+	
+		$time1 = date("H:i:s",mktime(date('H'),date('i'),date('s')));
+		mysql_query("UPDATE $user_db SET time1 = '$time1' WHERE id = '$user' AND end = '0' ")or die(mysql_error());
+
+	}
+
 ?>
 <html>
 	<head>
@@ -31,16 +40,17 @@
 
 			//	var uid = "<? echo empty($_GET['sid'])?'none':$_GET['sid']; ?>";
 				var uid = "LKS201111";
-				var qid = "<? echo $firstQid ?>";
-
+				var nowId = "<? echo $nowNum; ?>";
+				var qid = "<? echo $firstQid; ?>";
 				document.onkeydown = keyFunction;
 				var answerChecker = checkClosure();
 				$('#submitAnswer').click(function() {
 
 					var ans = $('#userAnswer').val();
-					answerChecker(uid, qid, ans);
+					answerChecker(uid, qid, ans, nowId);
 
 				})
+
 				
 			});
 		</script>
@@ -58,7 +68,7 @@
 			</article>
 			<article id="question">
 				<section id="user">受試者: <? echo $user; ?></section>
-				<section id="numPart">第 <span id="nowNum">1</span> 題 / 共 <? echo $total ?> 題</section>
+				<section id="numPart">第 <span id="nowNum"><? echo $nowNum+1; ?></span> 題 / 共 <? echo $total ?> 題</section>
 				<section id="idPart">題庫代碼: 
 					<span id="nowQid">
 					<?
@@ -108,7 +118,7 @@
 						當只能以拼音表音時，必要時在後面加括號說明語意，<br />以方便讀者了解拼音所代表的語意。<br />
 						輸入例子︰moh4落去(陷下去) ue5(“有的人”連音)
 					</li>
-					<li>
+					<li>	
 						若有漢字可貼切表發音時，後面加括號寫上對譯詞說明意思。<br />
 						輸入例子︰散食人(窮人) 凡勢(也許)
 					</li>

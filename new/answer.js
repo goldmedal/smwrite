@@ -3,7 +3,7 @@ function checkClosure(){
 	var errorNum = 0;
 	var _last = 0;
 
-	function checkAnswer(_uid, _qid, _ans) {
+	function checkAnswer(_uid, _qid, _ans, _nowId) {
 
 		$.ajax({
 			url: 'new_answer_check.php',
@@ -18,7 +18,7 @@ function checkClosure(){
 							國語: "+data.Chinese+" 台語: "+data.Taiwanese+"<br> \
 							拼音: "+data.Spell+" 英文: "+data.English+" \
 						");
-						/***  add check final keyFunctionion ***/
+						checkFinal(_qid, _uid, _nowId);
 						break;
 					case 0: // error not final
 						var errorMeg;
@@ -49,11 +49,11 @@ function checkClosure(){
 
 }
 
-function checkFinal(_qid, _uid){
+function checkFinal(_qid, _uid, _nowId){
 
 	 $.ajax({
 
-		url: 'new_answer_check.php',
+		url: 'answer_check_final.php',
 		type: 'post',
 		data: { qid : _qid,  uid: _uid },
 		dataType: 'json',
@@ -65,27 +65,41 @@ function checkFinal(_qid, _uid){
 
 			}else{
 
-				/* next qustion */
+				nextQuestion(_uid, _nowId);
 
 			}
 
 		},
 		error: function(xhr){
-			console.log(xhr.status);
-		}
 
+			console.log(xhr.status);
+
+		}
 
 
 	 });
 
 }
 
-function nextQuestion(){
+function nextQuestion(_uid, _nowId){
 
-	/*  */
+	/* Change Now num */
+	$('#submitAnswer').html("下一題").click(function(){
+		_nowId = parseInt(_nowId);
+		_nowId += 1;
+		window.location.href="new_answer.php?nowNum="+_nowId;
+
+	});
 
 }
 
+function endTest(_uid){
+
+	$('#submitAnswer').html("測驗結果").click(function(){
+		window.location.href="new_answer.php?nowNum="+_nowId;
+	});
+
+}
 
 
 function keyFunction() {
