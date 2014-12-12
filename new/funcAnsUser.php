@@ -16,7 +16,7 @@
 	function getUserInformation($uid) {
 
 		global $user_db;
-		$uquery = mysql_query("SELECT * FROM `$user_db` WHERE `id` = '$user' AND `end` = '0'") or die(mysql_error());
+		$uquery = mysql_query("SELECT * FROM `$user_db` WHERE `id` = '$uid' AND `end` = '0'") or die(mysql_error());
 		$user_row = mysql_fetch_assoc($uquery);	
 		return $user_row;
 	}

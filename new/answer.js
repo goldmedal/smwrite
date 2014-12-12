@@ -8,7 +8,7 @@ function checkClosure(){
 		$.ajax({
 			url: 'new_answer_check.php',
 			type: 'post',
-			data: { qid : _qid, ans: _ans, uid: _uid, last: _last},
+			data: { qid : _qid, ans: _ans, uid: _uid, last: _last, error: errorNum},
 			dataType: 'json',
 			success: function(data){		
 				switch(data.Status){
@@ -26,7 +26,11 @@ function checkClosure(){
 							case 0: errorMeg = "答錯了!"; break;
 							case 1: errorMeg = "不行不行!"; break;
 							case 2: 
-								errorMeg = "吼 ~ 偷偷提示你好了 "+data.Remind;
+								if(data.Remind){
+									errorMeg = "吼 ~ 偷偷提示你好了 "+data.Remind;
+								}else {
+									errorMeg = "還是錯喔了啦 ~ ";
+								}
 								_last = 1; // next time is the last time
 								break;
 							default: 
@@ -62,6 +66,7 @@ function checkFinal(_qid, _uid, _nowId){
 			if(data.Final == 1){
 
 				/* End */
+				endTest(_uid);
 
 			}else{
 
@@ -96,7 +101,7 @@ function nextQuestion(_uid, _nowId){
 function endTest(_uid){
 
 	$('#submitAnswer').html("測驗結果").click(function(){
-		window.location.href="new_answer.php?nowNum="+_nowId;
+		window.location.href="answer_result.php?uid="+_uid;
 	});
 
 }

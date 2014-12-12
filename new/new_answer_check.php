@@ -14,6 +14,7 @@
 	$userAns = $_POST['ans'];
 	$qid = $_POST['qid'];
 	$last = $_POST['last'];
+	$error = $_POST['error'];
 
 	// check ans
 
@@ -29,8 +30,10 @@
 
 	}else if($last != 1) {  // error and not final
 
-		countError($user,$qid);
-		recordError($user, $qid);
+		if($error == 0){
+			countError($user,$qid);
+			recordError($user, $qid);
+		}
 		echo json_encode(array('Status' => 0, 
 			'Remind' => $qrow['remind']
 			));
