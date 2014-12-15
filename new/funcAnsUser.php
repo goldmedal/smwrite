@@ -21,11 +21,18 @@
 		return $user_row;
 	}
 
+	function countAnsNum ($uid) {
+
+		global $user_db;
+		$uquery = mysql_query("UPDATE `$user_db` SET `sum` = sum+1 WHERE `num` = '$uid' AND `end` = '0'") or die(mysql_error());
+
+	}
+
 	function countError ($uid, $qid) {
 
 		global $user_db;
 		global $question_db;
-		$uquery = mysql_query("UPDATE `$user_db` SET `false_time` = false_time+1 WHERE `num` = '$uid' AND `end` = '0'") or die(mysql_error());
+		$uquery = mysql_query("UPDATE `$user_db` SET `false_num` = false_num+1 WHERE `num` = '$uid' AND `end` = '0'") or die(mysql_error());
 		$qquery = mysql_query("UPDATE `$question_db` SET `False_time` = False_time+1 WHERE `id` = '$qid'") or die(mysql_error());
 
 	}
