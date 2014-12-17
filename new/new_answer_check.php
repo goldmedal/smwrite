@@ -18,6 +18,12 @@
 
 	// check ans
 
+	if($error == 0) {
+		$test = 100;
+		countAnsNum($user);
+
+	}
+
 	$qrow = getQuesInformation($qid);
 	
 	if(strcasecmp($userAns, $qrow['Ans']) == 0){  // right
@@ -35,7 +41,7 @@
 			recordError($user, $qid);
 		}
 		echo json_encode(array('Status' => 0, 
-			'Remind' => $qrow['remind']
+			'Remind' => $qrow['remind'], 'test' => $test
 			));
 
 	} else { // error and final

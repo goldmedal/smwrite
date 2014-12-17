@@ -8,8 +8,7 @@
 	*/
 
 	require_once "funcAnsUser.php";
-//	$user = $_GET['sid']; 
-	$user = "LKS201111";
+	$user = $_GET['sid']; 
 	$uquery = mysql_query("SELECT `num`, `question` FROM `$user_db` WHERE `id` = '$user' AND `end` = '0'") or die(mysql_error());
 	$user_row = mysql_fetch_assoc($uquery);
 	$questionRow = explode(",", $user_row['question']);
