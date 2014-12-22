@@ -10,7 +10,7 @@ function checkClosure(){
 			type: 'post',
 			data: { qid : _qid, ans: _ans, uid: _uid, last: _last, error: errorNum},
 			dataType: 'json',
-			success: function(data){		
+			success: function(data){
 				switch(data.Status){
 					case 1:   // right
 						$('#answer').html(" \
@@ -107,12 +107,3 @@ function endTest(_uid){
 }
 
 
-function keyFunction() {
-
-	if (event.keyCode==81 && event.altKey) {
-		$('#audioQuestion').play();	
-	}else if(event.keyCode==32){
-
-	}
-
-}

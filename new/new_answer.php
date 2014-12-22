@@ -35,21 +35,42 @@
 		<script src="../jquery.hotkeys.js"></script>
 		<script src="answer.js"></script>
 		<script>
+
+		//	var uid = "<? echo empty($_GET['sid'])?'none':$_GET['sid']; ?>";
+			var uid = "LKS201111";
+			var nowId = "<? echo $nowNum; ?>";
+			var qid = "<? echo $firstQid; ?>";
+
+
+			function answerSubmitFunc(_checker){
+
+				var ans = $('#userAnswer').val();
+				_checker(uid, qid, ans, nowId);
+
+			}
+
+			function keyFunction() {
+
+				if (event.keyCode==81 && event.altKey) {
+					$('#audioQuestion').trigger('play');
+				}else if(event.keyCode==32){
+
+				}
+
+			}			
+
 			$(document).ready( function() {
 
-			//	var uid = "<? echo empty($_GET['sid'])?'none':$_GET['sid']; ?>";
-				var uid = "LKS201111";
-				var nowId = "<? echo $nowNum; ?>";
-				var qid = "<? echo $firstQid; ?>";
+
 				document.onkeydown = keyFunction;
 				var answerChecker = checkClosure();
-				$('#submitAnswer').click(function() {
 
-					var ans = $('#userAnswer').val();
-					answerChecker(uid, qid, ans, nowId);
+				$('#submitAnswer').click(function(){
+					answerSubmitFunc(answerChecker);
+				});
 
-				})
-
+				$('#userAnswer').focus(function(){
+				});
 				
 			});
 		</script>
@@ -81,7 +102,7 @@
 				</audio>
 				<section id="ansPart">
 					<label>請輸入答案(a): </label>
-					<input type='text' id='userAnswer' autofocus/>
+					<input type='text' id='userAnswer' autofocus accesskey="a" />
 					<button id='submitAnswer'>送出</button>
 				</section>
 			</article>
