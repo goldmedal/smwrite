@@ -11,7 +11,7 @@
 	require_once "funcAnsUser.php";
 
 	$user = $_POST['uid'];
-	$userAns = $_POST['ans'];
+	$userAns = stripslashes(trim($_POST['ans']));
 	$qid = $_POST['qid'];
 	$last = $_POST['last'];
 	$error = $_POST['error'];
@@ -47,7 +47,7 @@
 	} else { // error and final
 
 		echo json_encode(array('Status' => 0, 
-			'Ans' => $qrow['Ans']
+			'Ans' => $qrow['Ans'], 'uans' => $userAns
 			));
 
 	//	echo json_encode($qrow);

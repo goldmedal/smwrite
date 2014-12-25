@@ -8,7 +8,7 @@
 	*/
 
 	require_once "funcAnsUser.php";
-	$user = $_GET['sid']; 
+	$user = $_GET['uid']; 
 	$uquery = mysql_query("SELECT `num`, `question` FROM `$user_db` WHERE `id` = '$user' AND `end` = '0'") or die(mysql_error());
 	$user_row = mysql_fetch_assoc($uquery);
 	$questionRow = explode(",", $user_row['question']);
@@ -40,7 +40,8 @@
 			var uid = "LKS201111";
 			var nowId = "<? echo $nowNum; ?>";
 			var qid = "<? echo $firstQid; ?>";
-
+			var answerChecker = checkClosure();
+			var userText = 0;
 
 			function answerSubmitFunc(_checker){
 
@@ -53,24 +54,45 @@
 
 				if (event.keyCode==81 && event.altKey) {
 					$('#audioQuestion').trigger('play');
-				}else if(event.keyCode==32){
-
+				}else if(event.keyCode == 13 && userText == 1){
+					$('#submitAnswer').click();
 				}
 
-			}			
+			}	
+
+			function answerPaste(){
+				alert("請自己輸入喔! 不知道拼音或注音的話, 問Google吧!");
+			}		
 
 			$(document).ready( function() {
 
-
+				var playTime = 0; 
 				document.onkeydown = keyFunction;
-				var answerChecker = checkClosure();
 
 				$('#submitAnswer').click(function(){
-					answerSubmitFunc(answerChecker);
+					var answer = $('#userAnswer').val();
+					if(answer) {
+						answerSubmitFunc(answerChecker);
+					}
 				});
 
 				$('#userAnswer').focus(function(){
+					userText = 1;
 				});
+
+				$('#userAnswer').blur(function(){
+					userText = 0;
+				});
+
+				$('#audioQuestion').bind("ended", function() {
+
+					if(playTime == 0){
+						$('#audioQuestion').trigger('play');
+						playTime = 1;
+					}
+
+				});
+
 				
 			});
 		</script>
@@ -80,7 +102,8 @@
 	
 	<body>
 	
-		<header>Screw - SMwrite台語漢字檢測系統 - 測驗中
+		<header>
+			<div id="title">Screw - SMwrite台語漢字檢測系統 - 測驗中</div>
 			<div id="note">請聆聽整句錄音，題目在整句錄音的後面</div>
 		</header>
 		<div id="middle">
@@ -102,7 +125,7 @@
 				</audio>
 				<section id="ansPart">
 					<label>請輸入答案(a): </label>
-					<input type='text' id='userAnswer' autofocus accesskey="a" />
+					<input type='text' id='userAnswer' onpaste="answerPaste();return false" autofocus accesskey="a" />
 					<button id='submitAnswer'>送出</button>
 				</section>
 			</article>
@@ -115,10 +138,11 @@
 					<li>按 Alt+a 能快速到達答題區</li>
 					<li>按 Enter 回答問題</li>
 					<li>
-						按 Space 跳入下一題 or 看結果 <br />
+						按 Enter 跳入下一題 or 看結果 <br />
 						<span class='note'> 如無法使用Space快捷鍵,請嘗試先Ctrl+Space關閉輸入法模式, 再換按space換題目 </span>
 					</li>
 					<li>按 Alt+q 可以再聽一次題目</li>
+					
 					
 				</ol>
 			</section>

@@ -5,6 +5,8 @@ function checkClosure(){
 
 	function checkAnswer(_uid, _qid, _ans, _nowId) {
 
+		var feedback = 0;
+
 		$.ajax({
 			url: 'new_answer_check.php',
 			type: 'post',
@@ -33,10 +35,25 @@ function checkClosure(){
 								}
 								_last = 1; // next time is the last time
 								break;
-							default: 
+							case 3: 
 								errorMeg = "好啦好啦 答案是 "+data.Ans;
+								break;
+							case 6:
+								errorMeg = "好啦好啦 答案是 " + data.Ans +
+								"<br> 無法答題嗎? 可能是系統的問題喔! <br> " +
+								"先跳下一題吧 ! <button id='feedback'>跳過</button>";
+								feedback = 1;
+
 						}
+
 						$('#answer').html(errorMeg);
+						if(feedback == 1) {
+
+							$('#feedback').click(function(){
+								problemFeedback(_uid, _qid, _nowId);
+							});
+
+						}
 						errorNum++;
 
 				}
@@ -92,7 +109,7 @@ function nextQuestion(_uid, _nowId){
 	$('#submitAnswer').html("下一題").click(function(){
 		_nowId = parseInt(_nowId);
 		_nowId += 1;
-		window.location.href="new_answer.php?nowNum="+_nowId;
+		window.location.href="new_answer.php?uid="+ _uid +"&nowNum="+_nowId;
 
 	});
 
@@ -107,3 +124,21 @@ function endTest(_uid){
 }
 
 
+function problemFeedback(_uid, _qid, _nowId) {
+
+	$.ajax({
+
+		url: "answer_problem_feedback.php",
+		type: 'post',
+		data: { uid: _uid, qid: _qid },
+		dataType: 'text/html',
+		success: function(data) {
+			checkFinal(_qid, _uid, _nowId);
+		},
+		error: function(xhr) {
+			console.log(xhr.status);
+		}
+
+	});
+
+}
