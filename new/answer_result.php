@@ -27,60 +27,78 @@
 <head>
 <title>測驗結果</title>
  <link type="text/css" rel="stylesheet" href="mainpage.css"> 
+ <link rel="stylesheet" href="answer_result.css">
+ <link rel="stylesheet" href="fadeAndBlurTable.css">
  <meta charset="big5" />
   <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
  <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
  <script src="jquery.hotkeys.js"></script>	
  <script src="Link.js"></script>
+ <script>
+ 	$(document).ready(function(){
+
+ 		$('#end').click(function(){
+
+ 			window.location.href="../main.php";
+
+ 		});
+
+ 	});
+ </script>
 </head>
 <body>
 
-<div class="title">測驗結果</div><br><br>
+<header>測驗結果</header>
 
-受試者：<b><?echo $user;?></b><br>
-測驗日期：<?echo $user_row['date'];?><br>
-開始時間：<?echo $time1; ?><br>
-結束時間：<?echo $time2; ?><br>
-模式：<?
-		switch($user_row['Mode']){
-		
-			case "Practice" :
-				echo "自選練習模式";
-				break;
-			case "Group" :
-				$gr_query = mysql_query("SELECT * FROM $group_db WHERE id = '$user_row[group]'") or die(mysql_error());
-				$gr_row = mysql_fetch_assoc($gr_query);
-				echo "題組:".$gr_row['name']."<br>";
-				break;
-			case "ClassifyTest":
-				echo "類別測驗: ".$user_row['group'];
-				break;
-		}
-		?><br>
-共計：<?echo "$hour : $min : $sec";?><br>
-<br>
-共答 <?echo $user_row['sum']; ?> 題, 錯 <?echo $user_row['false_num'];?> 題<br>
-錯誤率：<? 
-			if($user_row["sum"] == 0){
-				echo "無答題";
-			}else{
-				$error_rate = $user_row["false_num"]/$user_row["sum"]*100;
-				echo round($error_rate,2)."%"; 
+<section id='userInformation'>
+
+	<div id='uid' class='userItem'>受試者：<?echo $user;?></div>
+	<div id='testDate' class='userItem'>測驗日期：<?echo $user_row['date'];?></div>
+	<div id='startTime' class='userItem'>開始時間：<?echo $time1; ?></div>
+	<div id='endTime' class='userItem'>結束時間：<?echo $time2; ?></div>
+	<div id='mode' class='userItem'>模式：<?
+			switch($user_row['Mode']){
+			
+				case "Practice" :
+					echo "自選練習模式";
+					break;
+				case "Group" :
+					$gr_query = mysql_query("SELECT * FROM $group_db WHERE id = '$user_row[group]'") or die(mysql_error());
+					$gr_row = mysql_fetch_assoc($gr_query);
+					echo "題組:".$gr_row['name']."<br>";
+					break;
+				case "ClassifyTest":
+					echo "類別測驗: ".$user_row['group'];
+					break;
 			}
-		?><br>
-錯誤的題目：
+			?></div>
+	<div id='totalTime' class='userItem'>共計：<?echo "$hour : $min : $sec";?></div>
+	<div id='ansNum' class='userItem'>共 答 <?echo $user_row['sum']; ?> 題, 錯 <?echo $user_row['false_num'];?> 題</div>
+	<div id='failRate' class='userItem'>錯誤率：<? 
+				if($user_row["sum"] == 0){
+					echo "無答題";
+				}else{
+					$error_rate = $user_row["false_num"]/$user_row["sum"]*100;
+					echo round($error_rate,2)."%"; 
+				}
+			?></div>
+	<div id='endTest' class='userItem'><button id='end'>結束測驗</button></div>
 
-<hr>
-<table border="1">
-<tr>
-	<td>題庫代碼</td>
-	<td>題目</td>
-	<td>國語</td>
-	<td>台語</td>
-	<td>拼音</td>
-	<td>英文</td>
-</tr>
 
+</section>
+<table>
+	<caption>錯誤的題目：</caption>
+	<thead>
+		<tr>
+			<th>題庫代碼</th>
+			<th>題目</th>
+			<th>國語</th>
+			<th>台語</th>
+			<th>拼音</th>
+			<th>英文</th>
+		</tr>
+	</thead>
+	<tbody>
 <?
 	$error_qu = explode(",",$user_row["error_qu"]);
 	for($i=1;$i<count($error_qu);$i++){
@@ -91,23 +109,24 @@
 		$cl_row = mysql_fetch_assoc($cl_result);
 
 ?>
-<tr>
+	<tr>
 
-	<td><? echo $cl_row['title'].$row['Level']."-".$row['Num']; ?></td>
-	<td>
-	<audio controls="controls">
-		<source src="../<?echo $row['DataSource'];?>">
-	</audio>
-	</td>
-	<td><?echo $row["Chinese"];?></td>
-	<td><?echo $row["Ans"];?></td>
-	<td><?echo $row["Spell"];?></td>
-	<td><?echo $row["English"];?></td>
+		<td><? echo $cl_row['title'].$row['Level']."-".$row['Num']; ?></td>
+		<td>
+		<audio controls="controls">
+			<source src="../<?echo $row['DataSource'];?>">
+		</audio>
+		</td>
+		<td><?echo $row["Chinese"];?></td>
+		<td><?echo $row["Ans"];?></td>
+		<td><?echo $row["Spell"];?></td>
+		<td><?echo $row["English"];?></td>
 
-</tr>
+	</tr>
 <?		
 	}
 ?>
+	</tbody>
 </table>
 <?
 

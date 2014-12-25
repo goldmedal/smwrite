@@ -1,0 +1,35 @@
+header {
+
+	position: relative;
+	width: 150px;
+	font-size: 20pt;
+	margin: 0 auto;
+	margin-top: 1%;
+
+}
+
+#userInformation {
+
+	position: relative;
+	margin: 0 auto;
+	margin-top: 1%;
+	width: 50%;
+	padding: 3%;
+
+}
+
+
+.userItem {
+
+	position: relative;
+	margin-top: 1%;
+	border-bottom: dashed 1px #000000;
+
+}
+
+#endTest {
+
+	border-bottom: solid 1px #ffffff;  /* delete border-bottom */
+
+}
+
